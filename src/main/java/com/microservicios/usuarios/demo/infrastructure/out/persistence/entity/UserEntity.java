@@ -1,4 +1,4 @@
-package com.microservicios.usuarios.demo.infraestructure.out.persistence.entity;
+package com.microservicios.usuarios.demo.infrastructure.out.persistence.entity;
 
 
 import jakarta.persistence.Table;
