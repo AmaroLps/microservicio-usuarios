@@ -9,3 +9,6 @@ public class UserRequest {
     private String email;
     private String password;
 }
+private  class {
+    
+        }
