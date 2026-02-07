@@ -8,6 +8,8 @@ import com.microservicios.usuarios.demo.domain.ports.out.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import java.util.Optional;
 
 @Service
@@ -15,7 +17,8 @@ import java.util.Optional;
 public class UserService implements UserUseCase {
 
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository; // ¡Nuevo! Necesario para buscar roles
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public User registrarUsuario(User usuario) {
@@ -24,23 +27,23 @@ public class UserService implements UserUseCase {
             throw new RuntimeException("El email ya existe en el sistema");
         }
 
-
         if (usuario.getRole() == null) {
-
             roleRepository.findByNombre("USER").ifPresent(usuario::setRole);
         }
 
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+
         return userRepository.save(usuario);
     }
-
 
     public User login(String email, String password) {
         User usuario = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        if (!usuario.getPassword().equals(password)) {
+        if (!passwordEncoder.matches(password, usuario.getPassword())) {
             throw new RuntimeException("Contraseña incorrecta");
         }
+
         return usuario;
     }
 

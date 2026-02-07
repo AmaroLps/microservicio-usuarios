@@ -26,7 +26,7 @@ public class UserEntity {
 
     @ManyToOne
     @JoinColumn(name = "role_id")
-    private RoleEntity role;  // Suponiendo que tienes esta entidad para roles
+    private RoleEntity role;
 
 }
 

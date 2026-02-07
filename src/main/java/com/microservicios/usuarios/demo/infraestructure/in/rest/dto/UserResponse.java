@@ -1,4 +1,4 @@
-package com.microservicios.usuarios.demo.domain.ports.in.dto;
+package com.microservicios.usuarios.demo.infraestructure.in.rest.dto;
 
 import com.microservicios.usuarios.demo.domain.model.Roles;
 import lombok.Builder;
